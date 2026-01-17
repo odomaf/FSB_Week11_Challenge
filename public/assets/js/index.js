@@ -34,7 +34,13 @@ const getNotes = () =>
     headers: {
       "Content-Type": "application/json",
     },
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("This is data we got from our fetch: ", data);
+      return data;
+    })
+    .catch((err) => console.error("FETCH error: ", err));
 
 const saveNote = (note) =>
   fetch("/api/notes", {
@@ -46,11 +52,10 @@ const saveNote = (note) =>
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log('POSTING: ', data);
+      console.log("POSTING: ", data);
       return data;
     })
     .catch((err) => console.error("POST error: ", err));
-
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -138,7 +143,11 @@ const handleRenderBtns = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
-  let jsonNotes = await notes.json();
+  console.log("in render notes list notes are", notes);
+  console.log(notes);
+  let jsonNotes = notes.body;
+  console.log("In the renderNoteList function. Notes are: ");
+  console.log({ jsonNotes });
   if (window.location.pathname === "/notes") {
     noteList.forEach((el) => (el.innerHTML = ""));
   }
