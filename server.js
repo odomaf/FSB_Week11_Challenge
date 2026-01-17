@@ -34,6 +34,7 @@ async function readNotes() {
   //read data from file, parse as JSON, return
   const raw = await fs.readFile(DB_FILE, "utf-8");
   const pretty = JSON.parse(raw);
+  console.log("This is what we read from the file");
   console.log({ pretty });
   return pretty;
 }
@@ -53,9 +54,13 @@ app.get("/notes", (req, res) => {
 });
 
 //return saved notes from our db file
-app.get("/api/notes", (req, res) => {
+//NOTE: the "async" is required in "async (req, res) OR using await" on readNotes() will not work
+app.get("/api/notes", async (req, res) => {
   try {
-    const notes = readNotes();
+    //console.log("Getting the notes: ");
+    const notes = await readNotes();
+    //console.log(`notes are ${notes.length} long`);
+    //console.log("this is what we got back from notes", notes);
     res.json({ status: "success", total: notes.length, body: notes });
   } catch (err) {
     console.error(err);
@@ -64,7 +69,7 @@ app.get("/api/notes", (req, res) => {
 });
 
 app.post("/api/notes", (req, res) => {
-  console.info(`${req.method} request received to add a review`);
+  console.info(`${req.method} request received to add a note`);
   console.log("Adding this note: ", req.body);
   const { title, text } = req.body;
   const newNote = {
@@ -76,6 +81,7 @@ app.post("/api/notes", (req, res) => {
   console.log("Updated Notes Data: ");
   console.log({ notesData });
 });
+
 app.listen(PORT, () => {
   console.log(`Serving static assets at http://localhost:${PORT}`);
 });
