@@ -54,7 +54,7 @@ app.get("/notes", (req, res) => {
 });
 
 //return saved notes from our db file
-//NOTE: the "async" is required in "async (req, res) OR using await" on readNotes() will not work
+//NOTE: the "async" is required in "async (req, res)" OR using on readNotes() will not work
 app.get("/api/notes", async (req, res) => {
   try {
     //console.log("Getting the notes: ");
