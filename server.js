@@ -68,7 +68,7 @@ app.get("/api/notes", async (req, res) => {
   }
 });
 
-app.post("/api/notes", (req, res) => {
+app.post("/api/notes", async (req, res) => {
   console.info(`${req.method} request received to add a note`);
   console.log("Adding this note: ", req.body);
   const { title, text } = req.body;
@@ -77,9 +77,23 @@ app.post("/api/notes", (req, res) => {
     title,
     text,
   };
-  notesData.push(newNote);
-  console.log("Updated Notes Data: ");
-  console.log({ notesData });
+
+  try {
+    const notes = await readNotes();
+    notes.push(newNote);
+    await writeNotes(notes);
+
+    res.status(201).json({ status: "success", body: newEntry });
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ status: "error", message: "Failed to save feedback." });
+  }
+
+  // notesData.push(newNote);
+  // console.log("Updated Notes Data: ");
+  // console.log({ notesData });
 });
 
 app.listen(PORT, () => {
