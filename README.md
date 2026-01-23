@@ -1,3 +1,6 @@
+# CERTIFICATION ASSIGNMENT
+This code is an assignment for a full stack certification course. Did not do bonus due to time factors, knowing that future assignments will require further practice on the topic
+
 # 🏁 Sprint Notes (Express.js + JSON Persistence)
 
 This project is a themed version of a classic Express.js note-taking app.
