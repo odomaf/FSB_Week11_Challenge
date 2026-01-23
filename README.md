@@ -1,5 +1,5 @@
 # CERTIFICATION ASSIGNMENT
-This code is an assignment for a full stack certification course. The "Render" deployment instructions were to be ignored, as we haven't covered render in class. Did not do bonus due to time factors, knowing that future assignments will require further practice on the topic
+This code is an assignment for a full stack certification course. Did not do bonus due to time factors, knowing that future assignments will require further practice on the topic
 
 # 🏁 Sprint Notes (Express.js + JSON Persistence)
 
